@@ -17,6 +17,7 @@ class Conta:
 
     def __init__(self,agencia:str,numero:int,cliente,historico):
         self.agencia = agencia
+        self.numero = numero
         self.cliente = cliente
         self.historico = historico
 
@@ -35,17 +36,25 @@ class Conta:
 
 class ContaCorrent(Conta):
 
-    pass
+    def __str__(self):
+        return f"Usuario{cliente} \nAgencida:{agencia}\n numero da conta{numero}\n "
+        
 class Historioco(Conta):
 
     pass
 
 
 class PessoaFisica(Cliente):
-    pass
+    def __init__(self,cpf:str,nome:str,data_nascimento):
+        
+        self.nome = nome
+        self.cpf = cpf
+        self.data_nascimento = data_nascimento
+
 class Transacao(ABC):
     pass
 class Deposito:
-    pass
+    def __init__(self) -> None:
+        pass
 class Saque(Transacao):
     pass
