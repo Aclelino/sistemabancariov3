@@ -6,6 +6,7 @@ class Cliente:
     def __init__(self, endereco):
         self.endereco = endereco
         self.contas = []
+
     def realizar_transacao(self,conta,transacao):
         transacao.regitrar(conta)
 
@@ -15,29 +16,56 @@ class Cliente:
 
 class Conta:
 
-    def __init__(self,agencia:str,numero:int,cliente,historico):
-        self.agencia = agencia
-        self.numero = numero
-        self.cliente = cliente
-        self.historico = historico
+    def __init__(self,numero,cliente):
+        self._saldo = 0
+        self._agencia = "001"
+        self._numero = numero
+        self._cliente = cliente
+        self._historico = Historioco()
 
+    @classmethod
+    def nova_conta(cls,cliente,numero):
+        return cls(cliente,numero)
+
+
+    @property
     def saldo(self):
-        pass
+        return self._saldo
+    
+    def numero(self):
+        return self._numero
+        
+    
+    def historico(self):
+        return self._historico
+    def sacar(self,valor):
+        saldo = self.saldo
+        excedeu_saldo = valor > saldo
 
-    def nova_conta(self,cliente,numero):
-        pass
+        if excedeu_saldo:
+            print(" Saldo Insulficiente ")
 
-    def sacar(valor:float,bool):
-        pass
+        else: 
+            saldo -= valor
+            print("Saquel realizado com sucesso ")
+        
+        
 
-    def depositar(valor:float,bool):
-        pass
+    def depositar(self,valor):
+        saldo = self.saldo
+
+        saldo += valor
+
+        print("Deposito realizado com sucesso")
     
 
 class ContaCorrent(Conta):
+    def __init__(self, numero, cliente,limite=500,limite_saques=3):
+        super().__init__(numero,cliente)
+        self.limite = limite
+        self.limite_saques = limite_saques
 
-    def __str__(self):
-        return f"Usuario{cliente} \nAgencida:{agencia}\n numero da conta{numero}\n "
+
         
 class Historioco(Conta):
 
@@ -45,7 +73,7 @@ class Historioco(Conta):
 
 
 class PessoaFisica(Cliente):
-    def __init__(self,cpf:str,nome:str,data_nascimento):
+    def __init__(self,cpf,nome,data_nascimento):
         
         self.nome = nome
         self.cpf = cpf
@@ -58,3 +86,11 @@ class Deposito:
         pass
 class Saque(Transacao):
     pass
+
+
+pessoa = PessoaFisica('05120171583','Aclelino Damiao Florentino','15/07/1991')
+cliente = Cliente('Rua Afonso Pena 146 centro Teixeira de Freitas-Ba')
+cliente.adicionar_conta('001')
+
+
+print(pessoa)
